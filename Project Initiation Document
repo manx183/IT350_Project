@@ -1,0 +1,79 @@
+Josh Hill, Hector Lugo
+IT350 – Databases
+Project Part 1: Project Initial Documentation
+
+Purpose of the Project
+	Millions of gamers play Destiny. Destiny is an online multiplayer shooter role playing game. Destiny has become extremely popular and new gamers join the ranks constantly. Destiny is a very complex game with multiple game modes, character types, classes, and thousands of equipment options. This complexity makes it difficult to keep track of everything the player can do in the game world.
+	Players need a way to keep track of their quests, bounties, characters, and items. This database can also help players to compare their character build to builds from other players to maximize their effectiveness for specific missions. It will also help players know what items are best for a certain type of character build. Many armor items give bonuses to certain weapons. Players can choose which armor items work best with their equipped weapons. Many of the quests require a team of players to successfully accomplish the mission. This database will also help players find clans with others players in their same level.
+
+List of Use Cases: 
+1.	Current player build
+a.	A report will be built for all characters a player has. The report will show what weapons each character has equipped and their level and attributes. The report will highlight equipment that is below the average rating for all items equipped. 
+2.	Available Quests and bounties
+a.	Each character has quests and bounties available to them. Each character can hold up to 36 quests and 16 bounties. Depending on what character the player uses more often, different quests and bounties would be available. This report will print out a list of available bounties and descriptions per character on a players account. 
+3.	Available team options
+a.	This report will give usernames of other players that have similar quests available compared to the player doing the query. The player can then create a team with those players to accomplish the missions together. This is especially helpful for Raid missions which require six players to work together. 
+Useful information:
+•	Each player can have up to three characters.
+•	Each character has a class
+•	Each class has three available subclasses but only one can be active at a time
+•	The player can switch a characters subclass at any time
+•	A character can carry multiple weapons and items of the same type but only one can be equipped at a time
+•	New bounties are available each day for each character 
+•	A characters light attribute is derived from the attack and defense rating on a characters items
+•	A characters level depends on how much experience they’ve accumulated
+•	The max level is 40
+•	There are class specific items (Armor is class specific but weapons are not)
+Stakeholders
+•	Players – can use database to keep track of their character builds and equipped items as well as available quests and bounties
+•	Online community organizers – can use database to find players with successful stats or rare items to write articles about
+•	Clan owners – can search for players in their level to invite to their groups to successfully accomplish harder missions
+Database Schema:
+Player(GamerId, serverId, clanName name, DoB, age, Gender)
+Vault(GamerId, storedArmor, storedWeapons, storedItems)
+Server(ServerId, status, location)
+GameModes(gameType, subtype, capacity, rewards)
+Playable(gameType, gamerId)
+Clan(Name, Size, Founder, Motto)
+Create(gamerId, characterType)
+Character(GamerId, Type, Light, Discipline, Intellect, Strength)
+characterInventory(gamerID, type, materials, consumables)
+CharacterItems(gamerId, type, artifact, ghost, classItem)
+CharacterArmor(gamerId, type, helmet, chest, arms, legs)
+CharacterWeapons(gamerId, type, primary, special, heavy)
+Aquired(gamerId, characterType, bountyName)
+InProgress(gamerId, characterType, title)
+Bounty(bountyName, description, reward, gamerId, characterType)
+Quest(title, reward, source)
+Class(className, melee, jump)
+SubClass(className, subName, super, grenade)
+Primary(name, rarity,  wType, attack)
+Special(name, rarity, wType, attack)
+Heavy(name, rarity, wType, attack)
+Helmet(helmetName, class, rarity, def, dis, int, str)
+Chest(chestName, class, rarity, def, dis, int, str)
+Arms(armsName, class, rarity, def, dis, int, str)
+Legs(legsName, class, rarity, def, dis, int, str)
+ClassItem(itemName, class, rarity, def, dis, int, str)
+Ghost(ghostName, rarity, def, dis, int, str)
+Artifact(artifactName, rarity, def, dis, int, str)
+
+Resources:
+•	Destiny Video Game
+•	Bungie.com website
+•	Hector Lugo – Player experience
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
