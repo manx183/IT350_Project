@@ -1,0 +1,36 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import MySQLdb as mdb
+
+con = mdb.connect('localhost', 'hlugo', 'pass12345', 'destiny');
+
+with con:
+
+	cur = con.cursor()
+
+	cur.execute("CREATE TABLE Clan(clanName VARCHAR(35) PRIMARY KEY, Size INT, Founder VARCHAR(20), Motto VARCHAR(50))")
+		
+	cur.execute("CREATE TABLE Server(serverID INT PRIMARY KEY, Location VARCHAR(25), Status VARCHAR(7))")
+	
+	cur.execute("CREATE TABLE Player(gamerID VARCHAR(20) PRIMARY KEY, serverID INT, clanName VARCHAR(35), firstName VARCHAR(12), lastName VARCHAR(18), DOB DATE NOT NULL, age INT, gender VARCHAR(6), FOREIGN KEY (serverID) REFERENCES Server(serverID), FOREIGN KEY (clanName) REFERENCES Clan(clanName))")
+	
+	cur.execute("CREATE TABLE pCharacter(gamerID VARCHAR(20), FOREIGN KEY(gamerID) REFERENCES Player(gamerID), race VARCHAR(6), gender VARCHAR(6), class VARCHAR(7), light INT, strength INT, intelligence INT, discipline INT)")
+	
+	cur.execute("CREATE TABLE Vault(gamerID VARCHAR(20), FOREIGN KEY(gamerID) REFERENCES Player(gamerID), storedArmor VARCHAR(20), storedWeapons VARCHAR(20), storedItems VARCHAR(20))")
+	
+	cur.execute("CREATE TABLE LegArmor(legName VARCHAR(20), class VARCHAR(7), PRIMARY KEY(legName, class), rarity VARCHAR(10), def INT, dis INT, inte INT, str INT)")
+	
+	cur.execute("CREATE TABLE Gauntlets(gauntletName VARCHAR(20), class VARCHAR(7), PRIMARY KEY(gauntletName, class), rarity VARCHAR(10), def INT, dis INT, inte INT, str INT)")
+	
+	cur.execute("CREATE TABLE ChestArmor(chestName  VARCHAR(20), class VARCHAR(7), PRIMARY KEY(chestName, class), rarity VARCHAR(10), def INT, dis INT, inte INT, str INT)")
+	
+	cur.execute("CREATE TABLE Helmet(helmName VARCHAR(20), class VARCHAR(7), PRIMARY KEY(helmName, class), rarity VARCHAR(10), def INT, dis INT, inte INT, str INT)")
+
+	cur.execute("CREATE TABLE PrimaryWeapons(pName VARCHAR(20) PRIMARY KEY, rarity VARCHAR(10), damageType VARCHAR(10), subtype VARCHAR(20), attack INT)")
+
+	cur.execute("CREATE TABLE SpecialWeapons(sName VARCHAR(20) PRIMARY KEY, rarity VARCHAR(10), damageType VARCHAR(10), subtype VARCHAR(20), attack INT)")
+
+	cur.execute("CREATE TABLE HeavyWeapons(hName VARCHAR(20) PRIMARY KEY, rarity VARCHAR(10), damageType VARCHAR(10), subtype VARCHAR(20), attack INT)")
+
+	cur.execute("CREATE TABLE Quests(title VARCHAR(20) PRIMARY KEY, rewards VARCHAR(20), source VARCHAR(20))")
