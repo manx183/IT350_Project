@@ -54,6 +54,6 @@ with con:
 	cur.execute("CREATE TRIGGER lightCalc BEFORE INSERT ON pCharacter FOR EACH ROW BEGIN SET NEW.light = (((SELECT wLight FROM equipedWeapons WHERE gamerID=NEW.gamerID AND characterNum=NEW.characterNum)+(SELECT aLight FROM equipedArmor WHERE gamerID=NEW.gamerID AND characterNum=NEW.characterNum))/7); END;")
 
 #creating view for character searches
-cur.execute("CREATE VIEW charView AS SELECT pCharacter.gamerID, clanName, level, race, class, light FROM pCharacter, Player WHERE pCharacter.gamerID = Player.gamerID;")
+	cur.execute("CREATE VIEW charView AS SELECT pCharacter.gamerID, clanName, level, race, class, light FROM pCharacter, Player WHERE pCharacter.gamerID = Player.gamerID;")
 
 	
