@@ -64,6 +64,10 @@ with open('questRewards.csv', 'rb') as fin:
 	reader = csv.DictReader(fin, )
 	rewardInput = [(i['title'], i['reward']) for i in reader]
 
+with open('inProgress.csv', 'rb') as fin:
+	reader = csv.DictReader(fin, )
+	progInput = [(i['gamerID'], i['characterNum'], i['title']) for i in reader]
+
 with open('characters.csv', 'rb') as fin:
 	reader = csv.DictReader(fin, )
 	charactersInput = [(i['gamerID'], i['characterNum'], i['level'], i['race'], i['gender'], i['class']) for i in reader]
@@ -75,6 +79,14 @@ with open('equipedWeapons.csv', 'rb') as fin:
 with open('equipedArmor.csv', 'rb') as fin:
 	reader = csv.DictReader(fin, )
 	eaInput = [(i['gamerID'], i['characterNum'], i['class'], i['helmName'], i['gauntletName'], i['chestName'], i['legName']) for i in reader]
+
+with open('vault.csv', 'rb') as fin:
+	reader = csv.DictReader(fin, )
+	vaultInput = [(i['gamerID'], i['glimmer'], i['legendaryMarks'], i['silver']) for i in reader]
+
+with open('vaultItems.csv', 'rb') as fin:
+	reader = csv.DictReader(fin, )
+	vitemsInput = [(i['gamerID'], i['itemName'], i['quantity']) for i in reader]
 
 con = mdb.connect('localhost', 'hlugo', 'pass12345', 'destiny');
 
@@ -95,3 +107,6 @@ with con:
 	cur.executemany("INSERT INTO equipedWeapons(gamerID, characterNum, pName, sName, hName) VALUES(%s, %s, %s, %s, %s)", ewInput)
 	cur.executemany("INSERT INTO equipedArmor(gamerID, characterNum, class, helmName, gauntletName, chestName, legName) VALUES(%s, %s, %s, %s, %s, %s, %s)", eaInput)
 	cur.executemany("INSERT INTO pCharacter(gamerID, characterNum, level, race, gender, class) VALUES(%s, %s, %s, %s, %s, %s)", charactersInput)
+	cur.executemany("INSERT INTO InProgress(gamerID, characterNum, title) VALUES(%s, %s, %s)", progInput)
+	cur.executemany("INSERT INTO Vault(gamerID, glimmer, legendaryMarks, silver) VALUES(%s, %s, %s, %s)", vaultInput)
+	cur.executemany("INSERT INTO VaultItems(gamerID, itemName, quantity) VALUES(%s, %s, %s)", vitemsInput)
