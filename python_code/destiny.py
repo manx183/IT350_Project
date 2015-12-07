@@ -14,12 +14,12 @@ with con:
 	cur.execute("CREATE TABLE Server(serverID INT PRIMARY KEY, Location VARCHAR(25) NOT NULL, Status VARCHAR(7) NOT NULL)")
 #Player	+
 	cur.execute("CREATE TABLE Player(gamerID VARCHAR(20) PRIMARY KEY, serverID INT NOT NULL, clanName VARCHAR(35), firstName VARCHAR(12) NOT NULL, lastName VARCHAR(18) NOT NULL, DOB DATE NOT NULL, age INT, gender VARCHAR(6) NOT NULL, FOREIGN KEY (serverID) REFERENCES Server(serverID), FOREIGN KEY (clanName) REFERENCES Clan(clanName))")
-#pCharacter	
-	cur.execute("CREATE TABLE pCharacter(gamerID VARCHAR(20) NOT NULL, FOREIGN KEY(gamerID) REFERENCES Player(gamerID), characterNum INT(1) NOT NULL,level INT NOT NULL, race VARCHAR(6) NOT NULL, gender VARCHAR(6) NOT NULL, class VARCHAR(7) NOT NULL, light INT DEFAULT 0, UNIQUE(gamerID, characterNum))")
-#Vault
+#pCharacter	+
+	cur.execute("CREATE TABLE pCharacter(gamerID VARCHAR(20), FOREIGN KEY(gamerID) REFERENCES Player(gamerID), characterNum INT(1) NOT NULL,level INT NOT NULL, race VARCHAR(6) NOT NULL, gender VARCHAR(6) NOT NULL, class VARCHAR(7) NOT NULL, light INT DEFAULT 0, UNIQUE(gamerID, characterNum))")
+#Vault	+
 	cur.execute("CREATE TABLE Vault(gamerID VARCHAR(20) NOT NULL, FOREIGN KEY(gamerID) REFERENCES Player(gamerID), glimmer INT, legendaryMarks INT, silver INT)")
-#Vault Items
-	cur.execute("CREATE TABLE VaultItems(gamerID VARCHAR(20) NOT NULL, FOREIGN KEY(gamerID) REFERENCES Player(gamerID), itemName VARCHAR(15), quantity int(3))")
+#Vault Items	+
+	cur.execute("CREATE TABLE VaultItems(gamerID VARCHAR(20) NOT NULL, FOREIGN KEY(gamerID) REFERENCES Player(gamerID), itemName VARCHAR(25), quantity int)")
 #LegArmor	+
 	cur.execute("CREATE TABLE LegArmor(legName VARCHAR(40), class VARCHAR(7), PRIMARY KEY(legName, class), rarity VARCHAR(10), def INT, dis INT, inte INT, str INT)")
 #Gauntlets	+
@@ -38,11 +38,11 @@ with con:
 	cur.execute("CREATE TABLE Quests(title VARCHAR(35) PRIMARY KEY, steps INT, description VARCHAR(140), category VARCHAR(30))")
 #Quest Rewards   +
 	cur.execute("CREATE TABLE QuestRewards(title VARCHAR(35), reward VARCHAR(35), FOREIGN KEY(title) REFERENCES Quests(title), UNIQUE(title, reward))")
-#InProgress Multivalued Attributes
-	cur.execute("CREATE TABLE InProgress(gamerID VARCHAR(20), title VARCHAR(20), FOREIGN KEY (gamerID) REFERENCES Player(gamerID), FOREIGN KEY (title) REFERENCES Quests(title))")
-#equipedWeapons
+#InProgress Multivalued Attributes +
+	cur.execute("CREATE TABLE InProgress(gamerID VARCHAR(20), characterNum INT, FOREIGN KEY (gamerID, characterNum) REFERENCES pCharacter(gamerID, characterNum), title VARCHAR(35), FOREIGN KEY (title) REFERENCES Quests(title), Unique(gamerID, characterNum, title))")
+#equipedWeapons +
 	cur.execute("CREATE TABLE equipedWeapons(gamerID VARCHAR(20), FOREIGN KEY (gamerID) REFERENCES Player(gamerID), characterNum INT, UNIQUE(gamerID, characterNum), pName VARCHAR(25), FOREIGN KEY (pName) REFERENCES PrimaryWeapons(pName), sName VARCHAR(25), FOREIGN KEY (sName) REFERENCES SpecialWeapons(sName), hName VARCHAR(25), FOREIGN KEY (hName) REFERENCES HeavyWeapons(hName), wLight INT DEFAULT 0)")
-#equipedArmor
+#equipedArmor +
 	cur.execute("CREATE TABLE equipedArmor(gamerID VARCHAR(20), FOREIGN KEY (gamerID) REFERENCES Player(gamerID), characterNum INT, UNIQUE(gamerID, characterNum), class VARCHAR(7), helmName VARCHAR(40), FOREIGN KEY (helmName) REFERENCES Helmet(helmName), gauntletName VARCHAR(40), FOREIGN KEY (gauntletName) REFERENCES Gauntlets(gauntletName), chestName VARCHAR(40), FOREIGN KEY (chestName) REFERENCES ChestArmor(chestName), legName VARCHAR(40), FOREIGN KEY (legName) REFERENCES LegArmor(legName), aLight INT DEFAULT 0)")
 
 	cur.execute("CREATE TRIGGER ageCalc BEFORE INSERT ON Player FOR EACH ROW BEGIN SET NEW.age = (YEAR(CURDATE())-YEAR(NEW.DOB)); END;")
