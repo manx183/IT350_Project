@@ -8,7 +8,7 @@ con = mdb.connect('localhost', 'hlugo', 'pass12345', 'destiny');
 with con:
 
 	cur = con.cursor()
-
+#
 	cur.execute("CREATE TABLE Clan(clanName VARCHAR(35) PRIMARY KEY, Size INT, Founder VARCHAR(20), Motto VARCHAR(50))")
 		
 	cur.execute("CREATE TABLE Server(serverID INT PRIMARY KEY, Location VARCHAR(25), Status VARCHAR(7))")
