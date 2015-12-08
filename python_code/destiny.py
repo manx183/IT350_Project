@@ -58,4 +58,4 @@ with con:
 
 	cur.execute("CREATE VIEW charBuild AS SELECT pCharacter.gamerID, pCharacter.characterNum, pCharacter.class, pName, sName, hName, light, helmName, gauntletName, chestName, legName FROM pCharacter, equipedWeapons, equipedArmor WHERE pCharacter.gamerId=equipedWeapons.gamerID AND equipedWeapons.gamerID=equipedArmor.gamerID AND pCharacter.characterNum=equipedWeapons.characterNum AND equipedWeapons.characterNum=equipedArmor.characterNum;")
 	
-	cur.execute("CREATE VIEW gamerQuests AS SELECT pCharacter.gamerID, pCharacter.characterNum, class, title FROM pCharacter, InProgress WHERE pCharacter.gamerID=InProgress.gamerID AND pCharacter.characterNum=InProgress.characterNum;")
+	cur.execute("CREATE VIEW gamerQuests AS SELECT pCharacter.gamerID, pCharacter.characterNum, level, race, class, title FROM pCharacter, InProgress WHERE pCharacter.gamerID=InProgress.gamerID AND pCharacter.characterNum=InProgress.characterNum;")
