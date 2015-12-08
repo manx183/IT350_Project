@@ -56,4 +56,5 @@ with con:
 #creating view for character searches
 	cur.execute("CREATE VIEW charView AS SELECT pCharacter.gamerID, clanName, level, race, class, light FROM pCharacter, Player WHERE pCharacter.gamerID = Player.gamerID;")
 
+	cur.execute("CREATE VIEW charBuild AS SELECT pCharacter.gamerID, pCharacter.characterNum, pCharacter.class, pName, sName, hName, light, helmName, gauntletName, chestName, legName FROM pCharacter, equipedWeapons, equipedArmor WHERE pCharacter.gamerId=equipedWeapons.gamerID AND equipedWeapons.gamerID=equipedArmor.gamerID AND pCharacter.characterNum=equipedWeapons.characterNum AND equipedWeapons.characterNum=equipedArmor.characterNum;")
 	
