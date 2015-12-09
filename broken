@@ -17,3 +17,16 @@ display(widgets.HBox((pRarity, button)))
 
 
 button.on_click(on_button_clicked)
+
+------------------------------------------------------------------------------
+
+#find lowest equipped weapon (returns only attack values)
+gamerStat2 = raw_input("Enter Gamer ID: ")
+cur.execute("SELECT characterNum, class, LEAST(pAttack, sAttack, hAttack) from pwStats where gamerID=%s", [gamerStat2])
+pWeaponStats2 = cur.fetchall()
+
+
+
+gs2 = pd.DataFrame( [[ij for ij in i] for i in pWeaponStats2] )
+gs2.rename(columns={0: 'Character#', 1: 'Class', 2: 'Least Effective Weapon'}, inplace=True)
+gs2.head(10)
