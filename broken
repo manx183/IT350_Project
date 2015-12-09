@@ -1,0 +1,19 @@
+from ipywidgets import widgets
+from IPython.display import display
+
+pRarity = widgets.Dropdown(description="Rarity: ",options=['Exotic', 'Legendary', 'Rare', 'Uncommon', 'Common'])
+
+    #find primary
+def on_button_clicked(b):
+    cur.execute("SELECT pName, subtype, attack FROM PrimaryWeapons WHERE rarity=%s", [pRarity])
+    pWeapons = cur.fetchall()
+    pW = pd.DataFrame( [[ij for ij in i] for i in pWeapons] )
+    pW.rename(columns={0: 'Primary Weapon Name', 1: 'Subtype', 2: 'Attack Value'}, inplace=True)
+    pW.head(200)
+
+button = widgets.Button(description='Submit', size=2)
+display(widgets.HBox((pRarity, button)))
+
+
+
+button.on_click(on_button_clicked)
